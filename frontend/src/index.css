@@ -1,0 +1,141 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-sans antialiased text-slate-800 dark:text-slate-100 bg-slate-50 dark:bg-slate-950 min-h-screen;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-300 dark:bg-slate-700 rounded-full;
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-slate-400 dark:bg-slate-600;
+}
+
+/* Industrial Tech Visual Elements */
+.industrial-card {
+  @apply bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm hover:shadow transition-all duration-200;
+}
+
+.industrial-card-glass {
+  @apply bg-white/80 dark:bg-slate-900/80 backdrop-blur border border-slate-200/80 dark:border-slate-800/80 rounded-xl shadow-sm;
+}
+
+.industrial-input {
+  @apply w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all;
+}
+
+.industrial-btn-primary {
+  @apply inline-flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-medium text-sm rounded-lg shadow-sm transition-all duration-150 disabled:opacity-50 disabled:cursor-not-allowed;
+}
+
+.industrial-btn-secondary {
+  @apply inline-flex items-center justify-center gap-2 px-4 py-2 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-300 dark:border-slate-700 font-medium text-sm rounded-lg shadow-sm transition-all duration-150;
+}
+
+/* Radar / Pulse animations */
+@keyframes ping-slow {
+  0% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.6); opacity: 0.2; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+.animate-ping-slow {
+  animation: ping-slow 2.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+/* ==========================================================================
+   Operations Pages: Centrally Scoped +10% Font Size Increase
+   Applies to all Operations views (Dashboard, Fleet, Predict, Alerts,
+   Maintenance, Analytics, Model Insights, Settings).
+   Does NOT apply to the Landing/Home page ("/").
+   ========================================================================== */
+.operations-layout {
+  font-size: 110%;
+}
+
+.operations-layout .text-\[10px\] {
+  font-size: 11px !important;
+}
+
+.operations-layout .text-\[11px\] {
+  font-size: 12.1px !important;
+}
+
+.operations-layout .text-xs {
+  font-size: 0.825rem !important; /* 0.75rem * 1.1 = 0.825rem (~13.2px) */
+  line-height: 1.15rem !important;
+}
+
+.operations-layout .text-sm {
+  font-size: 0.9625rem !important; /* 0.875rem * 1.1 = 0.9625rem (~15.4px) */
+  line-height: 1.4rem !important;
+}
+
+.operations-layout .text-base {
+  font-size: 1.1rem !important; /* 1.0rem * 1.1 = 1.1rem (~17.6px) */
+  line-height: 1.65rem !important;
+}
+
+.operations-layout .text-lg {
+  font-size: 1.2375rem !important; /* 1.125rem * 1.1 = 1.2375rem (~19.8px) */
+  line-height: 1.95rem !important;
+}
+
+.operations-layout .text-xl {
+  font-size: 1.375rem !important; /* 1.25rem * 1.1 = 1.375rem (~22px) */
+  line-height: 1.95rem !important;
+}
+
+.operations-layout .text-2xl {
+  font-size: 1.65rem !important; /* 1.5rem * 1.1 = 1.65rem (~26.4px) */
+  line-height: 2.2rem !important;
+}
+
+.operations-layout .text-3xl {
+  font-size: 2.0625rem !important; /* 1.875rem * 1.1 = 2.0625rem (~33px) */
+  line-height: 2.5rem !important;
+}
+
+.operations-layout .text-4xl {
+  font-size: 2.475rem !important; /* 2.25rem * 1.1 = 2.475rem (~39.6px) */
+  line-height: 2.8rem !important;
+}
+
+.operations-layout .text-5xl {
+  font-size: 3.3rem !important; /* 3.0rem * 1.1 = 3.3rem (~52.8px) */
+  line-height: 1.15 !important;
+}
+
+/* Ensure inputs, buttons and form controls scale in Operations */
+.operations-layout .industrial-input {
+  font-size: 0.9625rem;
+}
+
+.operations-layout .industrial-btn-primary,
+.operations-layout .industrial-btn-secondary {
+  font-size: 0.9625rem;
+}
+
+/* Recharts tick labels, SVG text, tooltips, and legends */
+.operations-layout .recharts-cartesian-axis-tick text,
+.operations-layout .recharts-text,
+.operations-layout text.recharts-cartesian-axis-tick-value {
+  font-size: 12px !important;
+}
+
+.operations-layout .recharts-legend-item-text,
+.operations-layout .recharts-default-tooltip {
+  font-size: 13px !important;
+}
