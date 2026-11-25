@@ -3,7 +3,7 @@ services:
   - type: web
     name: machinealert-api
     env: python
-    region: oregon
+    region: singapore
     plan: free
     rootDir: backend
     buildCommand: pip install -r requirements.txt
