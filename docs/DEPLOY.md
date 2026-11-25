@@ -153,9 +153,19 @@ npx netlify-cli deploy --prod --dir=dist
 
 ## 5. Alternative 1-Click Render.com Blueprint
 
-A pre-configured `render.yaml` is located in the project root.
-1. Connect your repository on [dashboard.render.com](https://dashboard.render.com).
-2. Click **New +** $\rightarrow$ **Blueprint**.
-3. Select this repository. Render automatically provisions:
-   - `machinealert-api`: Python Web Service with auto `/health` probe.
-   - `machinealert-web`: Static Site pointing to `frontend/dist` with SPA rewrites.
+A pre-configured `render.yaml` is located in the project root for deploying on Render's Free tier.
+
+### Render Services
+- `machinealert-api`: Python 3.11 Web Service (`rootDir: backend`, `uvicorn app.main:app --host 0.0.0.0 --port $PORT`, health check at `/health`).
+- `machinealert-web`: Static Site (`rootDir: frontend`, `npm install && npm run build`, `staticPublishPath: dist`, SPA rewrite `/*` -> `/index.html`).
+
+### Deploy Steps
+1. Push your repository to GitHub / GitLab.
+2. In the [Render Dashboard](https://dashboard.render.com), click **New +** $\rightarrow$ **Blueprint**.
+3. Select this repository and click **Apply**.
+4. Configure the two environment variables in the Render Dashboard (marked with `sync: false`):
+   - **`machinealert-api`**:
+     - `CORS_ORIGINS`: Set to your frontend static site URL (e.g. `https://machinealert-web.onrender.com`).
+   - **`machinealert-web`**:
+     - `VITE_API_URL`: Set to your backend API URL (e.g. `https://machinealert-api.onrender.com`).
+5. Render builds both services on the Free tier. On startup, the backend automatically seeds SQLite with 10 demo machines, sensor readings, alerts, and maintenance tasks if empty.

@@ -14,7 +14,11 @@ import {
   SensorReading,
 } from './types';
 
-const API_BASE = '/api/v1';
+// Read VITE_API_URL configured at build time (e.g. on Render: https://machinealert-api.onrender.com)
+const rawApiUrl = (import.meta.env.VITE_API_URL || '').trim().replace(/\/+$/, '');
+const API_BASE = rawApiUrl
+  ? (rawApiUrl.endsWith('/api/v1') ? rawApiUrl : `${rawApiUrl}/api/v1`)
+  : '/api/v1';
 
 async function handleResponse<T>(res: Response): Promise<T> {
   if (!res.ok) {

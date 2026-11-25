@@ -12,13 +12,18 @@ import numpy as np
 import pandas as pd
 from datetime import datetime
 
-# Add ml/src to sys.path so we can import helper modules if needed
-sys.path.append(os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "ml", "src"))
+# Import explainability engine (self-contained in backend/app/ for Render cloud deployments)
 try:
-    from explain import ModelExplainer
-    from features import get_feature_names
+    from .explain import ModelExplainer
 except ImportError:
-    pass
+    try:
+        from app.explain import ModelExplainer
+    except ImportError:
+        sys.path.append(os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "ml", "src"))
+        try:
+            from explain import ModelExplainer
+        except ImportError:
+            ModelExplainer = None
 
 from .config import settings
 from .schemas import PredictionRequest, PredictionResponse, TopFactor
@@ -66,8 +71,8 @@ class MLService:
             # Explainer
             if os.path.exists(settings.CLASSIFIER_PATH) and os.path.exists(settings.SCALER_PATH):
                 try:
-                    from explain import ModelExplainer
-                    self.explainer = ModelExplainer(settings.CLASSIFIER_PATH, settings.SCALER_PATH)
+                    if ModelExplainer is not None:
+                        self.explainer = ModelExplainer(settings.CLASSIFIER_PATH, settings.SCALER_PATH)
                 except Exception as e:
                     print(f"[WARN] Explainer initialization note: {e}")
 

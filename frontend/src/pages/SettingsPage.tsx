@@ -30,6 +30,14 @@ export const SettingsPage: React.FC = () => {
   const [streamInterval, setStreamInterval] = useState<number>(3.5);
   const [isStreaming, setIsStreaming] = useState<boolean>(false);
 
+  const rawApiUrl = (import.meta.env.VITE_API_URL || '').trim().replace(/\/+$/, '');
+  const apiEndpointDisplay = rawApiUrl
+    ? (rawApiUrl.endsWith('/api/v1') ? rawApiUrl : `${rawApiUrl}/api/v1`)
+    : (typeof window !== 'undefined' ? `${window.location.origin}/api/v1` : '/api/v1');
+  const swaggerDocsDisplay = rawApiUrl
+    ? `${rawApiUrl.replace(/\/api\/v1$/, '')}/docs`
+    : (typeof window !== 'undefined' ? `${window.location.origin}/docs` : '/docs');
+
   useEffect(() => {
     fetchSimulatorStatus()
       .then((res) => {
@@ -259,12 +267,12 @@ export const SettingsPage: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-mono">
           <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 space-y-1">
             <span className="text-slate-400 uppercase text-[10px]">REST API Endpoint:</span>
-            <div className="text-slate-800 dark:text-slate-200 font-bold">http://127.0.0.1:8000/api/v1</div>
+            <div className="text-slate-800 dark:text-slate-200 font-bold break-all">{apiEndpointDisplay}</div>
           </div>
 
           <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 space-y-1">
             <span className="text-slate-400 uppercase text-[10px]">Swagger Interactive Docs:</span>
-            <div className="text-blue-600 dark:text-blue-400 font-bold">http://127.0.0.1:8000/docs</div>
+            <div className="text-blue-600 dark:text-blue-400 font-bold break-all">{swaggerDocsDisplay}</div>
           </div>
 
           <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 space-y-1">

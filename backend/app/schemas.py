@@ -3,7 +3,7 @@ Pydantic Schemas for Request Validation and Response Serialization in MachineAle
 """
 from datetime import datetime
 from typing import Any, Literal, Optional
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 
 
 # Prediction Schemas
@@ -65,8 +65,7 @@ class MachineResponse(MachineBase):
     created_at: datetime
     updated_at: datetime
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 # Sensor Reading Schemas
@@ -86,8 +85,7 @@ class SensorReadingResponse(BaseModel):
     remaining_useful_life: float
     timestamp: datetime
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 # Alert Schemas
@@ -105,8 +103,7 @@ class AlertResponse(BaseModel):
     resolved_at: Optional[datetime]
     technician_notes: Optional[str]
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class AlertAcknowledgeRequest(BaseModel):
@@ -149,8 +146,7 @@ class MaintenanceResponse(BaseModel):
     cost_estimate: Optional[float]
     created_at: datetime
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 # Dashboard & Summary Schemas
